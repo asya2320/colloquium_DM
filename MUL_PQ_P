@@ -1,0 +1,51 @@
+int input_mnoz(int* a, int* b, int* c, int n) //ввод для рационального множителя
+{
+	int m = n;
+	int p, q;
+	cout << "Введите рациональное число: ";
+	cout << endl;
+	cout << "Введите числитель: ";
+	cin >> p;
+	cout << "Введите знаменатель:";
+	cin >> q;
+	while (n != -1)
+	{
+		a[n] = p;
+		b[n] = q;
+		if (((a[n] < 0) and (b[n] < 0)) or (b[n] < 0))
+		{
+			a[n] = a[n] * (-1);
+			b[n] = b[n] * (-1);
+		}
+		c[n] = n;
+		
+		n--;
+	}
+	cout << "________________________" << endl;
+	return m;
+}
+
+void MUL_PQ_P(int* a, int* b, int* c, int* a1, int* b1, int* c1, int m, int m1) {
+	char numerator_1[45], denominator_1[45], numerator_2[45], denominator_2[45];
+	char numerator_a[45], denominator_a[45];
+	bool sign_a, sign_1(1), sign_2(1);
+	int z(0), d(0);
+	int aa[45], bb[45], cc[45];
+	for (int i = 0; i <= m; i++) {
+		if (((a[i] < 0) && (a1[i] > 0)) || ((a[i] > 0) && (a1[i] < 0)))
+			z = 1;
+		if (a[i] < 0) { sign_1 = 0; a[i] *= (-1); }
+		if (a1[i] < 0) { sign_2 = 0; a1[i] *= (-1); }
+		_itoa_s(a[i], numerator_1, 10);
+		_itoa_s(b[i], denominator_1, 10);
+		_itoa_s(a1[i], numerator_2, 10);
+		_itoa_s(b1[i], denominator_2, 10);
+		MUL_QQ_Q(sign_1, numerator_1, denominator_1, sign_2, numerator_2, denominator_2, sign_a, numerator_a, denominator_a);
+		aa[i] = atoi(numerator_a);
+		bb[i] = atoi(denominator_a);
+		cc[i] = i;
+		if (z==1) aa[i] *= (-1);
+		z = 0;
+	}
+	output(aa, bb, cc, m);
+}
